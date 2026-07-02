@@ -1,4 +1,4 @@
-https://github.com/the-VanCartier-Authority/VVC-Voice-Sync/issues/1#issue-4790942614
+<img width="1392" height="752" alt="Image" src="https://github.com/user-attachments/assets/37e2a2ff-82ad-4ac5-a76a-50f6c6a005b2" />
 
 # VVC Voice Sync - Lector de Texto a Voz Offline (Cyberpunk Edition)
 
@@ -77,4 +77,4 @@ Si deseas personalizar la aplicación, puedes modificar los siguientes archivos:
 
 ---
 
-https://github.com/the-VanCartier-Authority/VVC-Voice-Sync/issues/2#issue-4790947328
+<img width="1920" height="1920" alt="Image" src="https://github.com/user-attachments/assets/84d49616-152c-478c-87c8-ff2585a72709" />
