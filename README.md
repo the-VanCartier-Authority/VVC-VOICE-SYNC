@@ -1,3 +1,5 @@
+https://github.com/the-VanCartier-Authority/VVC-Voice-Sync/issues/1#issue-4790942614
+
 # VVC Voice Sync - Lector de Texto a Voz Offline (Cyberpunk Edition)
 
 ## Introducción
@@ -75,4 +77,4 @@ Si deseas personalizar la aplicación, puedes modificar los siguientes archivos:
 
 ---
 
-**Desarrollado por Manus AI**
+https://github.com/the-VanCartier-Authority/VVC-Voice-Sync/issues/2#issue-4790947328
