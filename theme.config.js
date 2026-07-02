@@ -1,16 +1,16 @@
 /** @type {const} */
 const themeColors = {
-  // Cyberpunk VVC Palette
-  primary: { light: '#00FFFF', dark: '#00FFFF' }, // Cyan neon
-  accent: { light: '#FF00FF', dark: '#FF00FF' }, // Magenta neon
-  background: { light: '#0a0e27', dark: '#0a0e27' }, // Deep dark blue
-  surface: { light: '#1a1f3a', dark: '#1a1f3a' }, // Slightly lighter dark
-  foreground: { light: '#E0FFFF', dark: '#E0FFFF' }, // Bright cyan text
-  muted: { light: '#7a8aaa', dark: '#7a8aaa' }, // Muted blue-gray
-  border: { light: '#00FFFF', dark: '#00FFFF' }, // Cyan borders with glow
-  success: { light: '#00FF88', dark: '#00FF88' }, // Neon green
-  warning: { light: '#FFAA00', dark: '#FFAA00' }, // Neon orange
-  error: { light: '#FF0055', dark: '#FF0055' }, // Neon red
+  // VVC Corporate Cyberpunk Palette (from VVC-MOBILE-AGENT-CORE)
+  primary: { light: '#00E5FF', dark: '#00E5FF' }, // VVC Cyan
+  accent: { light: '#FF2A4F', dark: '#FF2A4F' }, // VVC Thermal Red
+  background: { light: '#05070A', dark: '#05070A' }, // VVC Black
+  surface: { light: '#101820', dark: '#101820' }, // VVC Panel
+  foreground: { light: '#E6FBFF', dark: '#E6FBFF' }, // VVC Text Primary
+  muted: { light: '#8FDCE8', dark: '#8FDCE8' }, // VVC Text Secondary
+  border: { light: '#00E5FF', dark: '#00E5FF' }, // VVC Cyan borders
+  success: { light: '#00E5FF', dark: '#00E5FF' }, // VVC Cyan
+  warning: { light: '#FF2A4F', dark: '#FF2A4F' }, // VVC Thermal Red
+  error: { light: '#FF2A4F', dark: '#FF2A4F' }, // VVC Thermal Red
 };
 
 module.exports = { themeColors };
