@@ -1,14 +1,16 @@
 /** @type {const} */
 const themeColors = {
-  primary: { light: '#0a7ea4', dark: '#0a7ea4' },
-  background: { light: '#ffffff', dark: '#151718' },
-  surface: { light: '#f5f5f5', dark: '#1e2022' },
-  foreground: { light: '#11181C', dark: '#ECEDEE' },
-  muted: { light: '#687076', dark: '#9BA1A6' },
-  border: { light: '#E5E7EB', dark: '#334155' },
-  success: { light: '#22C55E', dark: '#4ADE80' },
-  warning: { light: '#F59E0B', dark: '#FBBF24' },
-  error: { light: '#EF4444', dark: '#F87171' },
+  // Cyberpunk VVC Palette
+  primary: { light: '#00FFFF', dark: '#00FFFF' }, // Cyan neon
+  accent: { light: '#FF00FF', dark: '#FF00FF' }, // Magenta neon
+  background: { light: '#0a0e27', dark: '#0a0e27' }, // Deep dark blue
+  surface: { light: '#1a1f3a', dark: '#1a1f3a' }, // Slightly lighter dark
+  foreground: { light: '#E0FFFF', dark: '#E0FFFF' }, // Bright cyan text
+  muted: { light: '#7a8aaa', dark: '#7a8aaa' }, // Muted blue-gray
+  border: { light: '#00FFFF', dark: '#00FFFF' }, // Cyan borders with glow
+  success: { light: '#00FF88', dark: '#00FF88' }, // Neon green
+  warning: { light: '#FFAA00', dark: '#FFAA00' }, // Neon orange
+  error: { light: '#FF0055', dark: '#FF0055' }, // Neon red
 };
 
 module.exports = { themeColors };
