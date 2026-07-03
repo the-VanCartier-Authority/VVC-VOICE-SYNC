@@ -1,4 +1,4 @@
-import { ScrollView, Text, View, TextInput, Pressable, ActivityIndicator } from 'react-native';
+import { ScrollView, Text, View, TextInput, Pressable, ActivityIndicator, Image } from 'react-native';
 import { useEffect, useState } from 'react';
 import * as Clipboard from 'expo-clipboard';
 import * as Haptics from 'expo-haptics';
@@ -53,97 +53,99 @@ export default function HomeScreen() {
 
   if (isLoading) {
     return (
-      <ScreenContainer className="flex-1 items-center justify-center bg-background">
-        <ActivityIndicator size="large" color="#00FFFF" />
-        <Text className="mt-4 text-foreground">Inicializando...</Text>
+      <ScreenContainer className="flex-1 items-center justify-center bg-[#05070A]">
+        <ActivityIndicator size="large" color="#00E5FF" />
+        <Text className="mt-4 text-[#E6FBFF] font-mono">INITIALIZING_VVC_CORE...</Text>
       </ScreenContainer>
     );
   }
 
   return (
-    <ScreenContainer className="bg-background p-4">
+    <ScreenContainer className="bg-[#05070A] p-4">
       <ScrollView contentContainerStyle={{ flexGrow: 1 }} showsVerticalScrollIndicator={false}>
         <View className="flex-1 gap-6">
-          {/* Header */}
-          <View className="items-center gap-2 pt-4">
-            <Text className="text-4xl font-bold text-primary">VVC</Text>
-            <Text className="text-lg font-semibold text-foreground">VOICE SYNC</Text>
-            <Text className="text-xs text-muted">Text-to-Speech Offline</Text>
+          {/* Header with Logo */}
+          <View className="items-center gap-4 pt-6">
+            <Image 
+              source={require('@/assets/images/logo.png')} 
+              style={{ width: 300, height: 120, resizeMode: 'contain' }}
+            />
+            <View className="h-[1px] w-full bg-[#00E5FF] opacity-30" />
+            <Text className="text-xs font-mono text-[#00E5FF] tracking-[4px] uppercase">
+              Voice Synchronization System
+            </Text>
           </View>
 
           {/* Text Input Area */}
           <View className="gap-3">
-            <Text className="text-sm font-semibold text-primary uppercase tracking-wider">
-              Ingresa tu texto
-            </Text>
-            <TextInput
-              multiline
-              numberOfLines={8}
-              value={text}
-              onChangeText={setText}
-              placeholder="Pega o escribe el texto aquí..."
-              placeholderTextColor="#7a8aaa"
-              className={cn(
-                'rounded-lg border-2 border-primary bg-surface p-4 text-base text-foreground',
-                'font-mono'
-              )}
-              style={{
-                textAlignVertical: 'top',
-                borderColor: '#00FFFF',
-                shadowColor: '#00FFFF',
-                shadowOpacity: 0.3,
-                shadowRadius: 8,
-                elevation: 5,
-              }}
-            />
-            <Text className="text-xs text-muted">
-              {text.length} caracteres
-            </Text>
+            <View className="flex-row justify-between items-end">
+              <Text className="text-[10px] font-mono text-[#00E5FF] uppercase tracking-widest">
+                {'>'} Input_Buffer
+              </Text>
+              <Text className="text-[10px] font-mono text-[#8FDCE8]">
+                {text.length} BYTES
+              </Text>
+            </View>
+            
+            <View className="relative">
+              <TextInput
+                multiline
+                numberOfLines={8}
+                value={text}
+                onChangeText={setText}
+                placeholder="READY_FOR_INPUT..."
+                placeholderTextColor="#1a3a4a"
+                className={cn(
+                  'rounded-sm border border-[#00E5FF] bg-[#101820] p-4 text-base text-[#E6FBFF]',
+                  'font-mono'
+                )}
+                style={{
+                  textAlignVertical: 'top',
+                  minHeight: 200,
+                }}
+              />
+              <View className="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-[#00E5FF]" />
+              <View className="absolute top-0 right-0 w-2 h-2 border-t-2 border-r-2 border-[#00E5FF]" />
+              <View className="absolute bottom-0 left-0 w-2 h-2 border-b-2 border-l-2 border-[#00E5FF]" />
+              <View className="absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-[#00E5FF]" />
+            </View>
           </View>
 
           {/* Action Buttons */}
-          <View className="gap-3">
-            <View className="flex-row gap-3">
-              <Pressable
-                onPress={handlePaste}
-                disabled={!hasClipboard}
-                style={({ pressed }) => [
-                  {
-                    flex: 1,
-                    paddingVertical: 12,
-                    paddingHorizontal: 16,
-                    borderRadius: 8,
-                    backgroundColor: hasClipboard ? '#1a1f3a' : '#0a0e27',
-                    borderWidth: 2,
-                    borderColor: hasClipboard ? '#00FFFF' : '#7a8aaa',
-                    opacity: pressed ? 0.8 : 1,
-                    transform: [{ scale: pressed ? 0.97 : 1 }],
-                  },
-                ]}
-              >
-                <Text className="text-center font-semibold text-primary">PEGAR</Text>
-              </Pressable>
+          <View className="flex-row gap-3">
+            <Pressable
+              onPress={handlePaste}
+              disabled={!hasClipboard}
+              style={({ pressed }) => [
+                {
+                  flex: 1,
+                  paddingVertical: 12,
+                  backgroundColor: hasClipboard ? '#101820' : '#05070A',
+                  borderWidth: 1,
+                  borderColor: hasClipboard ? '#00E5FF' : '#1a3a4a',
+                  opacity: pressed ? 0.7 : 1,
+                },
+              ]}
+            >
+              <Text className="text-center font-mono text-[12px] text-[#00E5FF]">PASTE_DATA</Text>
+            </Pressable>
 
-              <Pressable
-                onPress={handleClear}
-                disabled={!text.trim()}
-                style={({ pressed }) => [
-                  {
-                    flex: 1,
-                    paddingVertical: 12,
-                    paddingHorizontal: 16,
-                    borderRadius: 8,
-                    backgroundColor: text.trim() ? '#1a1f3a' : '#0a0e27',
-                    borderWidth: 2,
-                    borderColor: text.trim() ? '#FF00FF' : '#7a8aaa',
-                    opacity: pressed ? 0.8 : 1,
-                    transform: [{ scale: pressed ? 0.97 : 1 }],
-                  },
-                ]}
-              >
-                <Text className="text-center font-semibold text-accent">LIMPIAR</Text>
-              </Pressable>
-            </View>
+            <Pressable
+              onPress={handleClear}
+              disabled={!text.trim()}
+              style={({ pressed }) => [
+                {
+                  flex: 1,
+                  paddingVertical: 12,
+                  backgroundColor: text.trim() ? '#101820' : '#05070A',
+                  borderWidth: 1,
+                  borderColor: text.trim() ? '#FF2A4F' : '#1a3a4a',
+                  opacity: pressed ? 0.7 : 1,
+                },
+              ]}
+            >
+              <Text className="text-center font-mono text-[12px] text-[#FF2A4F]">WIPE_BUFFER</Text>
+            </Pressable>
           </View>
 
           {/* Main Control Button */}
@@ -153,58 +155,38 @@ export default function HomeScreen() {
             style={({ pressed }) => [
               {
                 paddingVertical: 16,
-                paddingHorizontal: 24,
-                borderRadius: 12,
-                backgroundColor: text.trim() ? '#00FFFF' : '#0a0e27',
-                borderWidth: 2,
-                borderColor: '#00FFFF',
-                opacity: pressed ? 0.9 : 1,
-                transform: [{ scale: pressed ? 0.96 : 1 }],
-                shadowColor: '#00FFFF',
-                shadowOpacity: 0.5,
-                shadowRadius: 12,
-                elevation: 8,
+                backgroundColor: text.trim() ? (isSpeaking ? '#FF2A4F' : '#00E5FF') : '#101820',
+                borderWidth: 1,
+                borderColor: text.trim() ? (isSpeaking ? '#FF2A4F' : '#00E5FF') : '#1a3a4a',
+                opacity: pressed ? 0.8 : 1,
+                shadowColor: isSpeaking ? '#FF2A4F' : '#00E5FF',
+                shadowOpacity: 0.4,
+                shadowRadius: 10,
+                elevation: 10,
               },
             ]}
           >
             <View className="flex-row items-center justify-center gap-3">
-              {isSpeaking && <ActivityIndicator color="#0a0e27" size="small" />}
-              <Text
-                className={cn(
-                  'text-center font-bold text-lg uppercase tracking-wider',
-                  isSpeaking ? 'text-background' : 'text-background'
-                )}
-              >
-                {isSpeaking ? 'DETENER' : 'REPRODUCIR'}
+              {isSpeaking && <ActivityIndicator color="#05070A" size="small" />}
+              <Text className="text-center font-mono font-bold text-lg text-[#05070A] tracking-widest">
+                {isSpeaking ? 'ABORT_SYNC' : 'EXECUTE_SYNC'}
               </Text>
             </View>
           </Pressable>
 
           {/* Status Indicator */}
           {isSpeaking && (
-            <View className="items-center gap-2 rounded-lg border-2 border-accent bg-surface p-4">
-              <Text className="text-sm font-semibold text-accent">REPRODUCIENDO...</Text>
-              <View className="flex-row gap-1">
-                {[0, 1, 2].map((i) => (
-                  <View
-                    key={i}
-                    className="h-2 w-1 rounded-full bg-accent"
-                    style={{
-                      opacity: 0.5 + (i * 0.2),
-                    }}
-                  />
-                ))}
-              </View>
+            <View className="items-center gap-3 border border-[#FF2A4F] bg-[#101820] p-4">
+              <Text className="text-[10px] font-mono text-[#FF2A4F]">
+                {'>'} SYNCING_VOICE_STREAM...
+              </Text>
             </View>
           )}
 
-          {/* Info */}
-          <View className="items-center gap-2 rounded-lg bg-surface p-4 opacity-70">
-            <Text className="text-xs text-muted">
-              Funciona 100% sin conexión a internet
-            </Text>
-            <Text className="text-xs text-muted">
-              Usa la voz nativa de tu dispositivo
+          {/* Footer Info */}
+          <View className="mt-auto pt-8 items-center">
+            <Text className="text-[8px] font-mono text-[#8FDCE8] opacity-50">
+              VVC_AUTHORITY // SECURE_OFFLINE_MODE // ENCRYPTED_TTS
             </Text>
           </View>
         </View>
