@@ -1,5 +1,5 @@
 <img width="1706" height="922" alt="Image" src="https://github.com/user-attachments/assets/b1e489f1-bf03-4bb5-8ca3-3bd530c7ff55" />
-<img width="1706" height="922" alt="Image" src="https://github.com/user-attachments/assets/b1e489f1-bf03-4bb5-8ca3-3bd530c7ff55" />
+<img width="1774" height="887" alt="Image" src="https://github.com/user-attachments/assets/7356e062-7b8b-45d2-a09d-3c760d5cc2a3" />
 
 # VVC Voice Sync - Lector de Texto a Voz Offline (Cyberpunk Edition)
 
