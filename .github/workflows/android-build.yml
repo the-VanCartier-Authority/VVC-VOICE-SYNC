@@ -1,9 +1,6 @@
 name: Android Build
-
 on:
   push:
-    branches: [ main, master ]
-  pull_request:
     branches: [ main, master ]
   workflow_dispatch:
 
@@ -11,43 +8,42 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: 🏗 Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: ⚙️ Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 22
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9
+      - name: 📦 Setup pnpm (via Corepack)
+        run: |
+          corepack enable
+          corepack prepare pnpm@9.15.4 --activate
 
-      - name: Install dependencies
-        run: pnpm install
-
-      - name: Setup Java
+      - name: ⚙️ Setup Java
         uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
+          distribution: 'zulu'
           java-version: '17'
 
-      - name: Setup Android SDK
+      - name: ⚙️ Setup Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Prebuild Expo
+      - name: 📦 Install Dependencies
+        run: pnpm install
+
+      - name: 🏗 Prebuild Android
         run: npx expo prebuild --platform android --no-install
 
-      - name: Build Android APK
+      - name: 🏗 Build Android APK
         run: |
           cd android
           chmod +x gradlew
           ./gradlew assembleDebug --no-daemon
 
-      - name: Upload APK
+      - name: 📤 Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: app-debug
+          name: vvc-voice-sync-debug-apk
           path: android/app/build/outputs/apk/debug/*.apk
-          
