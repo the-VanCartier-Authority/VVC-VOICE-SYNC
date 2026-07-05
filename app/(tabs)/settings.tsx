@@ -1,4 +1,4 @@
-import { ScrollView, Text, View, Pressable } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import Slider from '@react-native-community/slider';
 import { useSpeech } from '@/hooks/use-speech';
@@ -6,7 +6,7 @@ import { ScreenContainer } from '@/components/screen-container';
 import * as Haptics from 'expo-haptics';
 
 export default function SettingsScreen() {
-  const { settings, updateSettings, availableVoices, isLoading } = useSpeech();
+  const { settings, updateSettings, availableVoices } = useSpeech();
 
   const handleRateChange = (value: number) => {
     updateSettings({ rate: value });
@@ -29,33 +29,38 @@ export default function SettingsScreen() {
   };
 
   return (
-    <ScreenContainer className="bg-background p-4">
+    <ScreenContainer className="bg-[#0A0B0D] p-4">
       <ScrollView contentContainerStyle={{ flexGrow: 1 }} showsVerticalScrollIndicator={false}>
         <View className="gap-6 pb-8">
           {/* Header */}
           <View className="items-center gap-2 pt-4">
-            <Text className="text-3xl font-bold text-primary">CONFIGURACIÓN</Text>
-            <Text className="text-xs text-muted">Ajusta tu experiencia de voz</Text>
+            <Text className="text-3xl font-mono font-bold text-[#00FF66]">CORE_CONFIG</Text>
+            <Text className="text-[10px] font-mono text-[#9CA3AF] uppercase tracking-widest">Voice Synchronization Parameters</Text>
           </View>
+
+          <View className="h-[1px] w-full bg-[#9CA3AF] opacity-20" />
 
           {/* Idioma/Voz */}
           <View className="gap-3">
-            <Text className="text-sm font-semibold text-primary uppercase tracking-wider">
-              Idioma / Voz
+            <Text className="text-[10px] font-mono text-[#00FF66] uppercase tracking-widest">
+              {'>'} Voice_Profile
             </Text>
-            <View className="rounded-lg border-2 border-primary bg-surface p-4">
+            <View className="border border-[#9CA3AF] bg-[#0A0B0D] p-1">
               <Picker
                 selectedValue={settings.language}
                 onValueChange={handleLanguageChange}
                 style={{
-                  color: '#E0FFFF',
+                  color: '#E5E7EB',
+                  backgroundColor: '#0A0B0D',
                 }}
+                dropdownIconColor="#00FF66"
               >
                 {availableVoices.map((voice) => (
                   <Picker.Item
                     key={voice.identifier}
                     label={`${voice.name} (${voice.language})`}
                     value={voice.language}
+                    color="#E5E7EB"
                   />
                 ))}
               </Picker>
@@ -65,12 +70,12 @@ export default function SettingsScreen() {
           {/* Velocidad */}
           <View className="gap-3">
             <View className="flex-row items-center justify-between">
-              <Text className="text-sm font-semibold text-primary uppercase tracking-wider">
-                Velocidad
+              <Text className="text-[10px] font-mono text-[#00FF66] uppercase tracking-widest">
+                {'>'} Processing_Rate
               </Text>
-              <Text className="text-sm font-mono text-accent">{settings.rate.toFixed(1)}x</Text>
+              <Text className="text-sm font-mono text-[#D4AF37]">{settings.rate.toFixed(1)}x</Text>
             </View>
-            <View className="rounded-lg bg-surface p-4">
+            <View className="border border-[#9CA3AF] bg-[#0A0B0D] p-4">
               <Slider
                 style={{ height: 40 }}
                 minimumValue={0.5}
@@ -78,13 +83,13 @@ export default function SettingsScreen() {
                 step={0.1}
                 value={settings.rate}
                 onValueChange={handleRateChange}
-                minimumTrackTintColor="#00FFFF"
-                maximumTrackTintColor="#7a8aaa"
-                thumbTintColor="#FF00FF"
+                minimumTrackTintColor="#00FF66"
+                maximumTrackTintColor="#2D3748"
+                thumbTintColor="#D4AF37"
               />
               <View className="mt-2 flex-row justify-between">
-                <Text className="text-xs text-muted">0.5x</Text>
-                <Text className="text-xs text-muted">2.0x</Text>
+                <Text className="text-[8px] font-mono text-[#9CA3AF]">0.5x</Text>
+                <Text className="text-[8px] font-mono text-[#9CA3AF]">2.0x</Text>
               </View>
             </View>
           </View>
@@ -92,12 +97,12 @@ export default function SettingsScreen() {
           {/* Tono */}
           <View className="gap-3">
             <View className="flex-row items-center justify-between">
-              <Text className="text-sm font-semibold text-primary uppercase tracking-wider">
-                Tono
+              <Text className="text-[10px] font-mono text-[#00FF66] uppercase tracking-widest">
+                {'>'} Frequency_Pitch
               </Text>
-              <Text className="text-sm font-mono text-accent">{settings.pitch.toFixed(1)}</Text>
+              <Text className="text-sm font-mono text-[#D4AF37]">{settings.pitch.toFixed(1)}</Text>
             </View>
-            <View className="rounded-lg bg-surface p-4">
+            <View className="border border-[#9CA3AF] bg-[#0A0B0D] p-4">
               <Slider
                 style={{ height: 40 }}
                 minimumValue={0.5}
@@ -105,13 +110,13 @@ export default function SettingsScreen() {
                 step={0.1}
                 value={settings.pitch}
                 onValueChange={handlePitchChange}
-                minimumTrackTintColor="#00FFFF"
-                maximumTrackTintColor="#7a8aaa"
-                thumbTintColor="#FF00FF"
+                minimumTrackTintColor="#00FF66"
+                maximumTrackTintColor="#2D3748"
+                thumbTintColor="#D4AF37"
               />
               <View className="mt-2 flex-row justify-between">
-                <Text className="text-xs text-muted">Grave</Text>
-                <Text className="text-xs text-muted">Agudo</Text>
+                <Text className="text-[8px] font-mono text-[#9CA3AF]">LOW_FREQ</Text>
+                <Text className="text-[8px] font-mono text-[#9CA3AF]">HIGH_FREQ</Text>
               </View>
             </View>
           </View>
@@ -119,12 +124,12 @@ export default function SettingsScreen() {
           {/* Volumen */}
           <View className="gap-3">
             <View className="flex-row items-center justify-between">
-              <Text className="text-sm font-semibold text-primary uppercase tracking-wider">
-                Volumen
+              <Text className="text-[10px] font-mono text-[#00FF66] uppercase tracking-widest">
+                {'>'} Output_Amplitude
               </Text>
-              <Text className="text-sm font-mono text-accent">{Math.round(settings.volume * 100)}%</Text>
+              <Text className="text-sm font-mono text-[#D4AF37]">{Math.round(settings.volume * 100)}%</Text>
             </View>
-            <View className="rounded-lg bg-surface p-4">
+            <View className="border border-[#9CA3AF] bg-[#0A0B0D] p-4">
               <Slider
                 style={{ height: 40 }}
                 minimumValue={0}
@@ -132,25 +137,25 @@ export default function SettingsScreen() {
                 step={0.05}
                 value={settings.volume}
                 onValueChange={handleVolumeChange}
-                minimumTrackTintColor="#00FFFF"
-                maximumTrackTintColor="#7a8aaa"
-                thumbTintColor="#FF00FF"
+                minimumTrackTintColor="#00FF66"
+                maximumTrackTintColor="#2D3748"
+                thumbTintColor="#D4AF37"
               />
               <View className="mt-2 flex-row justify-between">
-                <Text className="text-xs text-muted">Silencio</Text>
-                <Text className="text-xs text-muted">Máximo</Text>
+                <Text className="text-[8px] font-mono text-[#9CA3AF]">SILENCE</Text>
+                <Text className="text-[8px] font-mono text-[#9CA3AF]">MAX_GAIN</Text>
               </View>
             </View>
           </View>
 
           {/* Info */}
-          <View className="gap-2 rounded-lg border-2 border-accent bg-surface p-4">
-            <Text className="text-xs font-semibold text-accent uppercase">INFORMACIÓN</Text>
-            <Text className="text-xs text-muted leading-relaxed">
-              Los cambios se guardan automáticamente. Todos los ajustes se aplican en tiempo real.
+          <View className="gap-2 border border-[#D4AF37] bg-[#0A0B0D] p-4">
+            <Text className="text-[10px] font-mono font-semibold text-[#D4AF37] uppercase tracking-widest">SYSTEM_STATUS</Text>
+            <Text className="text-[9px] font-mono text-[#9CA3AF] leading-relaxed">
+              Auto-save enabled. All parameters applied to the real-time synthesis engine.
             </Text>
-            <Text className="mt-2 text-xs text-muted leading-relaxed">
-              Funciona 100% sin conexión. No requiere permisos especiales.
+            <Text className="mt-2 text-[9px] font-mono text-[#9CA3AF] leading-relaxed">
+              100% Offline operation. Zero telemetry. Secure execution.
             </Text>
           </View>
         </View>

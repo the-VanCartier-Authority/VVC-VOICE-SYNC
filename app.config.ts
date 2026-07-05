@@ -21,7 +21,7 @@ const config: ExpoConfig = {
   slug: "vvc-voice-sync",
   version: "1.0.0",
   orientation: "portrait",
-  icon: "./assets/images/icon.png",
+  icon: "./assets/images/ic_launcher.png",
   scheme: "vvcvoicesync",
   userInterfaceStyle: "dark",
   newArchEnabled: true,
@@ -31,8 +31,8 @@ const config: ExpoConfig = {
   },
   android: {
     adaptiveIcon: {
-      backgroundColor: "#05070A",
-      foregroundImage: "./assets/images/icon.png",
+      backgroundColor: "#0A0B0D",
+      foregroundImage: "./assets/images/ic_launcher.png",
     },
     package: bundleId,
     permissions: ["POST_NOTIFICATIONS"],
@@ -53,10 +53,10 @@ const config: ExpoConfig = {
     [
       "expo-splash-screen",
       {
-        image: "./assets/images/splash-icon.png",
+        image: "./assets/images/logo_suite.png",
         imageWidth: 200,
         resizeMode: "contain",
-        backgroundColor: "#05070A",
+        backgroundColor: "#0A0B0D",
       },
     ],
     [

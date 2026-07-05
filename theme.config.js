@@ -1,16 +1,16 @@
 /** @type {const} */
 const themeColors = {
-  // VVC Corporate Cyberpunk Palette (from VVC-MOBILE-AGENT-CORE)
-  primary: { light: '#00E5FF', dark: '#00E5FF' }, // VVC Cyan
-  accent: { light: '#FF2A4F', dark: '#FF2A4F' }, // VVC Thermal Red
-  background: { light: '#05070A', dark: '#05070A' }, // VVC Black
-  surface: { light: '#101820', dark: '#101820' }, // VVC Panel
-  foreground: { light: '#E6FBFF', dark: '#E6FBFF' }, // VVC Text Primary
-  muted: { light: '#8FDCE8', dark: '#8FDCE8' }, // VVC Text Secondary
-  border: { light: '#00E5FF', dark: '#00E5FF' }, // VVC Cyan borders
-  success: { light: '#00E5FF', dark: '#00E5FF' }, // VVC Cyan
-  warning: { light: '#FF2A4F', dark: '#FF2A4F' }, // VVC Thermal Red
-  error: { light: '#FF2A4F', dark: '#FF2A4F' }, // VVC Thermal Red
+  // VVC HORIZONT - VISUAL MANIFEST Compliance
+  primary: { light: '#00FF66', dark: '#00FF66' }, // Verde Terminal Matrix
+  accent: { light: '#D4AF37', dark: '#D4AF37' }, // Oro Antiguo / Secondary
+  background: { light: '#0A0B0D', dark: '#0A0B0D' }, // Negro Profundo/Obsidiana
+  surface: { light: '#0A0B0D', dark: '#0A0B0D' }, // Surface mate
+  foreground: { light: '#E5E7EB', dark: '#E5E7EB' }, // Gris Platino
+  muted: { light: '#9CA3AF', dark: '#9CA3AF' }, // Gris Ceniza
+  border: { light: '#9CA3AF', dark: '#9CA3AF' }, // Líneas finas 1dp
+  success: { light: '#00FF66', dark: '#00FF66' },
+  warning: { light: '#D4AF37', dark: '#D4AF37' },
+  error: { light: '#D4AF37', dark: '#D4AF37' },
 };
 
 module.exports = { themeColors };

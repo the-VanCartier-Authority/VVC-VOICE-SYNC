@@ -53,36 +53,43 @@ export default function HomeScreen() {
 
   if (isLoading) {
     return (
-      <ScreenContainer className="flex-1 items-center justify-center bg-[#05070A]">
-        <ActivityIndicator size="large" color="#00E5FF" />
-        <Text className="mt-4 text-[#E6FBFF] font-mono">INITIALIZING_VVC_CORE...</Text>
+      <ScreenContainer className="flex-1 items-center justify-center bg-[#0A0B0D]">
+        <ActivityIndicator size="large" color="#00FF66" />
+        <Text className="mt-4 text-[#E5E7EB] font-mono">INITIALIZING_VVC_CORE...</Text>
       </ScreenContainer>
     );
   }
 
   return (
-    <ScreenContainer className="bg-[#05070A] p-4">
+    <ScreenContainer className="bg-[#0A0B0D] p-0">
       <ScrollView contentContainerStyle={{ flexGrow: 1 }} showsVerticalScrollIndicator={false}>
-        <View className="flex-1 gap-6">
-          {/* Header with Logo */}
-          <View className="items-center gap-4 pt-6">
+        {/* Banner de la aplicación */}
+        <Image 
+          source={require('@/assets/images/banner_readme.png')} 
+          style={{ width: '100%', height: 120, resizeMode: 'cover' }}
+        />
+        
+        <View className="flex-1 gap-6 p-4">
+          {/* Header with Logo Interfaz */}
+          <View className="flex-row items-center justify-between pt-2">
             <Image 
-              source={require('@/assets/images/logo.png')} 
-              style={{ width: 300, height: 120, resizeMode: 'contain' }}
+              source={require('@/assets/images/logo_interfaz.png')} 
+              style={{ width: 150, height: 40, resizeMode: 'contain' }}
             />
-            <View className="h-[1px] w-full bg-[#00E5FF] opacity-30" />
-            <Text className="text-xs font-mono text-[#00E5FF] tracking-[4px] uppercase">
-              Voice Synchronization System
+            <Text className="text-[10px] font-mono text-[#D4AF37] tracking-[2px] uppercase">
+              VVC-TRINCHERA
             </Text>
           </View>
+
+          <View className="h-[1px] w-full bg-[#9CA3AF] opacity-20" />
 
           {/* Text Input Area */}
           <View className="gap-3">
             <View className="flex-row justify-between items-end">
-              <Text className="text-[10px] font-mono text-[#00E5FF] uppercase tracking-widest">
+              <Text className="text-[10px] font-mono text-[#00FF66] uppercase tracking-widest">
                 {'>'} Input_Buffer
               </Text>
-              <Text className="text-[10px] font-mono text-[#8FDCE8]">
+              <Text className="text-[10px] font-mono text-[#9CA3AF]">
                 {text.length} BYTES
               </Text>
             </View>
@@ -94,20 +101,22 @@ export default function HomeScreen() {
                 value={text}
                 onChangeText={setText}
                 placeholder="READY_FOR_INPUT..."
-                placeholderTextColor="#1a3a4a"
+                placeholderTextColor="#2D3748"
                 className={cn(
-                  'rounded-sm border border-[#00E5FF] bg-[#101820] p-4 text-base text-[#E6FBFF]',
+                  'border border-[#9CA3AF] bg-[#0A0B0D] p-4 text-base text-[#E5E7EB]',
                   'font-mono'
                 )}
                 style={{
                   textAlignVertical: 'top',
                   minHeight: 200,
+                  borderRadius: 0, // Ángulos rectos estrictos
                 }}
               />
-              <View className="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-[#00E5FF]" />
-              <View className="absolute top-0 right-0 w-2 h-2 border-t-2 border-r-2 border-[#00E5FF]" />
-              <View className="absolute bottom-0 left-0 w-2 h-2 border-b-2 border-l-2 border-[#00E5FF]" />
-              <View className="absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-[#00E5FF]" />
+              {/* Corner accents */}
+              <View className="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-[#00FF66]" />
+              <View className="absolute top-0 right-0 w-2 h-2 border-t-2 border-r-2 border-[#00FF66]" />
+              <View className="absolute bottom-0 left-0 w-2 h-2 border-b-2 border-l-2 border-[#00FF66]" />
+              <View className="absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-[#00FF66]" />
             </View>
           </View>
 
@@ -120,14 +129,18 @@ export default function HomeScreen() {
                 {
                   flex: 1,
                   paddingVertical: 12,
-                  backgroundColor: hasClipboard ? '#101820' : '#05070A',
+                  backgroundColor: '#0A0B0D',
                   borderWidth: 1,
-                  borderColor: hasClipboard ? '#00E5FF' : '#1a3a4a',
+                  borderColor: hasClipboard ? '#00FF66' : '#2D3748',
                   opacity: pressed ? 0.7 : 1,
+                  borderRadius: 0,
                 },
               ]}
             >
-              <Text className="text-center font-mono text-[12px] text-[#00E5FF]">PASTE_DATA</Text>
+              <Text className={cn(
+                "text-center font-mono text-[12px]",
+                hasClipboard ? "text-[#00FF66]" : "text-[#2D3748]"
+              )}>PASTE_DATA</Text>
             </Pressable>
 
             <Pressable
@@ -137,14 +150,18 @@ export default function HomeScreen() {
                 {
                   flex: 1,
                   paddingVertical: 12,
-                  backgroundColor: text.trim() ? '#101820' : '#05070A',
+                  backgroundColor: '#0A0B0D',
                   borderWidth: 1,
-                  borderColor: text.trim() ? '#FF2A4F' : '#1a3a4a',
+                  borderColor: text.trim() ? '#D4AF37' : '#2D3748',
                   opacity: pressed ? 0.7 : 1,
+                  borderRadius: 0,
                 },
               ]}
             >
-              <Text className="text-center font-mono text-[12px] text-[#FF2A4F]">WIPE_BUFFER</Text>
+              <Text className={cn(
+                "text-center font-mono text-[12px]",
+                text.trim() ? "text-[#D4AF37]" : "text-[#2D3748]"
+              )}>WIPE_BUFFER</Text>
             </Pressable>
           </View>
 
@@ -155,20 +172,17 @@ export default function HomeScreen() {
             style={({ pressed }) => [
               {
                 paddingVertical: 16,
-                backgroundColor: text.trim() ? (isSpeaking ? '#FF2A4F' : '#00E5FF') : '#101820',
+                backgroundColor: text.trim() ? (isSpeaking ? '#D4AF37' : '#00FF66') : '#0A0B0D',
                 borderWidth: 1,
-                borderColor: text.trim() ? (isSpeaking ? '#FF2A4F' : '#00E5FF') : '#1a3a4a',
+                borderColor: text.trim() ? (isSpeaking ? '#D4AF37' : '#00FF66') : '#2D3748',
                 opacity: pressed ? 0.8 : 1,
-                shadowColor: isSpeaking ? '#FF2A4F' : '#00E5FF',
-                shadowOpacity: 0.4,
-                shadowRadius: 10,
-                elevation: 10,
+                borderRadius: 0,
               },
             ]}
           >
             <View className="flex-row items-center justify-center gap-3">
-              {isSpeaking && <ActivityIndicator color="#05070A" size="small" />}
-              <Text className="text-center font-mono font-bold text-lg text-[#05070A] tracking-widest">
+              {isSpeaking && <ActivityIndicator color="#0A0B0D" size="small" />}
+              <Text className="text-center font-mono font-bold text-lg text-[#0A0B0D] tracking-widest">
                 {isSpeaking ? 'ABORT_SYNC' : 'EXECUTE_SYNC'}
               </Text>
             </View>
@@ -176,8 +190,8 @@ export default function HomeScreen() {
 
           {/* Status Indicator */}
           {isSpeaking && (
-            <View className="items-center gap-3 border border-[#FF2A4F] bg-[#101820] p-4">
-              <Text className="text-[10px] font-mono text-[#FF2A4F]">
+            <View className="items-center gap-3 border border-[#D4AF37] bg-[#0A0B0D] p-4">
+              <Text className="text-[10px] font-mono text-[#D4AF37]">
                 {'>'} SYNCING_VOICE_STREAM...
               </Text>
             </View>
@@ -185,7 +199,7 @@ export default function HomeScreen() {
 
           {/* Footer Info */}
           <View className="mt-auto pt-8 items-center">
-            <Text className="text-[8px] font-mono text-[#8FDCE8] opacity-50">
+            <Text className="text-[8px] font-mono text-[#9CA3AF] opacity-50">
               VVC_AUTHORITY // SECURE_OFFLINE_MODE // ENCRYPTED_TTS
             </Text>
           </View>
