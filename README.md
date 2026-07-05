@@ -1,4 +1,5 @@
-<img width="1392" height="752" alt="Image" src="https://github.com/user-attachments/assets/37e2a2ff-82ad-4ac5-a76a-50f6c6a005b2" />
+<img width="1706" height="922" alt="Image" src="https://github.com/user-attachments/assets/b1e489f1-bf03-4bb5-8ca3-3bd530c7ff55" />
+<img width="1706" height="922" alt="Image" src="https://github.com/user-attachments/assets/b1e489f1-bf03-4bb5-8ca3-3bd530c7ff55" />
 
 # VVC Voice Sync - Lector de Texto a Voz Offline (Cyberpunk Edition)
 
@@ -77,4 +78,5 @@ Si deseas personalizar la aplicación, puedes modificar los siguientes archivos:
 
 ---
 
-<img width="1920" height="1920" alt="Image" src="https://github.com/user-attachments/assets/84d49616-152c-478c-87c8-ff2585a72709" />
+<img width="1248" height="832" alt="Image" src="https://github.com/user-attachments/assets/c1e2d082-ba62-468f-a0f1-5df7079c40c9" />
+<img width="1024" height="1024" alt="Image" src="https://github.com/user-attachments/assets/9573b7a2-344f-4c60-8df6-377c06651dfc" />
