@@ -7,7 +7,7 @@ import { useSpeech } from '@/hooks/use-speech';
 import { cn } from '@/lib/utils';
 
 export default function HomeScreen() {
-  const { speak, stop, isSpeaking, isLoading } = useSpeech();
+  const { speak, stop, isSpeaking, isLoading, errorMessage } = useSpeech();
   const [text, setText] = useState('');
   const [hasClipboard, setHasClipboard] = useState(false);
 
@@ -187,6 +187,13 @@ export default function HomeScreen() {
               </Text>
             </View>
           </Pressable>
+
+          {errorMessage && (
+            <View className="items-center gap-2 border border-[#D4AF37] bg-[#0A0B0D] p-4">
+              <Text className="text-[10px] font-mono text-[#D4AF37]">{'>'} TTS_ALERT</Text>
+              <Text className="text-[10px] font-mono text-[#E5E7EB] text-center">{errorMessage}</Text>
+            </View>
+          )}
 
           {/* Status Indicator */}
           {isSpeaking && (

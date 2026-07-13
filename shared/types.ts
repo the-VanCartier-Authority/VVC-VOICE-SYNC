@@ -5,3 +5,11 @@
 
 export type * from "../drizzle/schema";
 export * from "./_core/errors";
+
+export interface SpeechSettings {
+  rate: number;
+  pitch: number;
+  volume: number;
+  language: string;
+  voiceId?: string;
+}
