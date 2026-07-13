@@ -6,7 +6,7 @@ import { ScreenContainer } from '@/components/screen-container';
 import * as Haptics from 'expo-haptics';
 
 export default function SettingsScreen() {
-  const { settings, updateSettings, availableVoices } = useSpeech();
+  const { settings, updateSettings, availableVoices, errorMessage } = useSpeech();
 
   const handleRateChange = (value: number) => {
     updateSettings({ rate: value });
@@ -23,8 +23,12 @@ export default function SettingsScreen() {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
   };
 
-  const handleLanguageChange = (language: string) => {
-    updateSettings({ language });
+  const handleVoiceChange = (voiceId: string) => {
+    const selectedVoice = availableVoices.find((voice) => voice.identifier === voiceId);
+    updateSettings({
+      voiceId: selectedVoice?.identifier,
+      language: selectedVoice?.language ?? settings.language,
+    });
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
   };
 
@@ -47,22 +51,26 @@ export default function SettingsScreen() {
             </Text>
             <View className="border border-[#9CA3AF] bg-[#0A0B0D] p-1">
               <Picker
-                selectedValue={settings.language}
-                onValueChange={handleLanguageChange}
+                selectedValue={settings.voiceId ?? settings.language}
+                onValueChange={handleVoiceChange}
                 style={{
                   color: '#E5E7EB',
                   backgroundColor: '#0A0B0D',
                 }}
                 dropdownIconColor="#00FF66"
               >
-                {availableVoices.map((voice) => (
-                  <Picker.Item
-                    key={voice.identifier}
-                    label={`${voice.name} (${voice.language})`}
-                    value={voice.language}
-                    color="#E5E7EB"
-                  />
-                ))}
+                {availableVoices.length === 0 ? (
+                  <Picker.Item label="Motor TTS del sistema" value={settings.language} color="#E5E7EB" />
+                ) : (
+                  availableVoices.map((voice) => (
+                    <Picker.Item
+                      key={voice.identifier}
+                      label={`${voice.name} (${voice.language})`}
+                      value={voice.identifier}
+                      color="#E5E7EB"
+                    />
+                  ))
+                )}
               </Picker>
             </View>
           </View>
@@ -147,6 +155,13 @@ export default function SettingsScreen() {
               </View>
             </View>
           </View>
+
+          {errorMessage && (
+            <View className="gap-2 border border-[#D4AF37] bg-[#0A0B0D] p-4">
+              <Text className="text-[10px] font-mono font-semibold text-[#D4AF37] uppercase tracking-widest">ALERTA_TTS</Text>
+              <Text className="text-[9px] font-mono text-[#E5E7EB] leading-relaxed">{errorMessage}</Text>
+            </View>
+          )}
 
           {/* Info */}
           <View className="gap-2 border border-[#D4AF37] bg-[#0A0B0D] p-4">
