@@ -1,19 +1,37 @@
 import { ScrollView, Text, View, TextInput, Pressable, ActivityIndicator, Image } from 'react-native';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import * as Clipboard from 'expo-clipboard';
 import * as Haptics from 'expo-haptics';
 import { ScreenContainer } from '@/components/screen-container';
 import { useSpeech } from '@/hooks/use-speech';
+import { useDictation } from '@/hooks/use-dictation';
 import { cn } from '@/lib/utils';
 
 export default function HomeScreen() {
   const { speak, stop, isSpeaking, isLoading, errorMessage } = useSpeech();
+  const {
+    isListening: isDictating,
+    isPreparing: isPreparingDictation,
+    transcript: dictationTranscript,
+    errorMessage: dictationErrorMessage,
+    startDictation,
+    stopDictation,
+    clearTranscript,
+  } = useDictation();
   const [text, setText] = useState('');
   const [hasClipboard, setHasClipboard] = useState(false);
+  const dictationBaseTextRef = useRef('');
 
   useEffect(() => {
     checkClipboard();
   }, []);
+
+  useEffect(() => {
+    if (!dictationTranscript) return;
+
+    const baseText = dictationBaseTextRef.current.trim();
+    setText(baseText ? `${baseText}\n${dictationTranscript}` : dictationTranscript);
+  }, [dictationTranscript]);
 
   const checkClipboard = async () => {
     try {
@@ -38,6 +56,22 @@ export default function HomeScreen() {
   const handleClear = () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     setText('');
+    dictationBaseTextRef.current = '';
+    clearTranscript();
+  };
+
+  const handleDictation = async () => {
+    Haptics.impactAsync(
+      isDictating ? Haptics.ImpactFeedbackStyle.Light : Haptics.ImpactFeedbackStyle.Medium,
+    );
+
+    if (isDictating) {
+      stopDictation();
+      return;
+    }
+
+    dictationBaseTextRef.current = text;
+    await startDictation();
   };
 
   const handleSpeak = async () => {
@@ -120,6 +154,38 @@ export default function HomeScreen() {
             </View>
           </View>
 
+          {/* Local dictation control */}
+          <Pressable
+            onPress={handleDictation}
+            disabled={isPreparingDictation}
+            style={({ pressed }) => [
+              {
+                paddingVertical: 14,
+                backgroundColor: isDictating ? '#D4AF37' : '#0A0B0D',
+                borderWidth: 1,
+                borderColor: isDictating ? '#D4AF37' : '#00FF66',
+                opacity: pressed ? 0.8 : isPreparingDictation ? 0.5 : 1,
+                borderRadius: 0,
+              },
+            ]}
+          >
+            <View className="flex-row items-center justify-center gap-3">
+              {isPreparingDictation && <ActivityIndicator color="#00FF66" size="small" />}
+              <Text
+                className={cn(
+                  'text-center font-mono font-bold text-[12px] tracking-widest',
+                  isDictating ? 'text-[#0A0B0D]' : 'text-[#00FF66]',
+                )}
+              >
+                {isPreparingDictation
+                  ? 'PREPARING_LOCAL_MODEL...'
+                  : isDictating
+                    ? 'STOP_LOCAL_DICTATION'
+                    : 'START_LOCAL_DICTATION'}
+              </Text>
+            </View>
+          </Pressable>
+
           {/* Action Buttons */}
           <View className="flex-row gap-3">
             <Pressable
@@ -188,18 +254,23 @@ export default function HomeScreen() {
             </View>
           </Pressable>
 
-          {errorMessage && (
+          {(errorMessage || dictationErrorMessage) && (
             <View className="items-center gap-2 border border-[#D4AF37] bg-[#0A0B0D] p-4">
-              <Text className="text-[10px] font-mono text-[#D4AF37]">{'>'} TTS_ALERT</Text>
-              <Text className="text-[10px] font-mono text-[#E5E7EB] text-center">{errorMessage}</Text>
+              <Text className="text-[10px] font-mono text-[#D4AF37]">
+                {'>'} {dictationErrorMessage ? 'STT_ALERT' : 'TTS_ALERT'}
+              </Text>
+              <Text className="text-[10px] font-mono text-[#E5E7EB] text-center">
+                {dictationErrorMessage || errorMessage}
+              </Text>
             </View>
           )}
 
           {/* Status Indicator */}
-          {isSpeaking && (
+          {(isSpeaking || isDictating) && (
+
             <View className="items-center gap-3 border border-[#D4AF37] bg-[#0A0B0D] p-4">
               <Text className="text-[10px] font-mono text-[#D4AF37]">
-                {'>'} SYNCING_VOICE_STREAM...
+                {'>'} {isDictating ? 'LISTENING_LOCAL_MIC...' : 'SYNCING_VOICE_STREAM...'}
               </Text>
             </View>
           )}

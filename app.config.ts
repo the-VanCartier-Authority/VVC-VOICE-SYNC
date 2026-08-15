@@ -50,6 +50,7 @@ const config: ExpoConfig = {
         microphonePermission: "Allow $(PRODUCT_NAME) to access your microphone.",
       },
     ],
+    ["expo-ai-kit", { speech: true }],
     [
       "expo-splash-screen",
       {
