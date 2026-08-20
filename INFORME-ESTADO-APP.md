@@ -1,9 +1,9 @@
 # Informe de estado de VVC Voice Sync
 
-**Fecha de actualización:** 19 de agosto de 2026  
+**Fecha de actualización:** 20 de agosto de 2026  
 **Repositorio:** `the-VanCartier-Authority/VVC-VOICE-SYNC`  
-**Rama de integración:** `fix/android-release-apk`  
-**Rama destino:** `main`
+**Rama validada:** `main`  
+**Commit de fusión:** `eb65aa28d4d3ee0f883fde3ce37cb50ce5cd66b1`
 
 ## 1. Resumen ejecutivo
 
@@ -11,7 +11,7 @@ La aplicación se instalaba correctamente, mostraba la pantalla de splash y se c
 
 La corrección consiste en cambiar el workflow de Android a `assembleRelease` y publicar el APK desde la carpeta `android/app/build/outputs/apk/release/`. La corrección fue compilada localmente y también fue verificada por un workflow remoto exitoso en la rama `fix/android-release-apk`.
 
-La corrección todavía debe integrarse en `main`, ejecutarse de nuevo desde `main` y probarse en un teléfono físico. Hasta completar esa prueba no debe considerarse cerrada la incidencia.
+La corrección ya fue integrada en `main` mediante el Pull Request [#10](https://github.com/the-VanCartier-Authority/VVC-VOICE-SYNC/pull/10). Después de la fusión, el workflow de `main` terminó correctamente en la ejecución [32326327011](https://github.com/the-VanCartier-Authority/VVC-VOICE-SYNC/actions/runs/32326327011). El APK final de `main` contiene el bundle JavaScript y está listo para la prueba en el teléfono físico. Hasta completar esa prueba no debe considerarse cerrada la incidencia.
 
 ## 2. Problema original confirmado
 
@@ -57,7 +57,7 @@ android/app/build/outputs/apk/release/*.apk
 
 El APK release verificado contiene `assets/index.android.bundle`, tiene el paquete `com.vvc.voicesync`, versión `1.0.0`, versionCode `1` y firma válida mediante APK Signature Scheme v2.
 
-La corrección se encuentra en el commit `0fd76db` de la rama `fix/android-release-apk`. El workflow remoto `31981676937` finalizó correctamente.
+La corrección se incorporó a `main` mediante el commit de fusión `eb65aa2`. El workflow remoto de `main` `32326327011` terminó con estado `success`.
 
 ## 4. Estado de la integración STT
 
@@ -77,14 +77,16 @@ Durante la compilación nativa de la rama STT se confirmó que la dependencia de
 | Tests (`pnpm test`) | El proceso termina, pero la única prueba configurada está marcada como `skipped`; no existe cobertura efectiva validada |
 | Expo prebuild Android | Correcto |
 | Compilación release local | Correcta |
-| Workflow release remoto | Correcto, ejecución `31981676937` |
+| Workflow release en rama de corrección | Correcto |
+| Workflow release fusionado en `main` | Correcto, ejecución `32326327011` |
 | Bundle JavaScript en APK release | Confirmado |
 | Firma APK release | Válida con APK Signature Scheme v2 |
+| SHA-256 del APK final | `64c80291a3b3c312a2b35c7cef722dbb7aea5dec89732c08dbdad634f584e6a9` |
 | Prueba en teléfono físico | Pendiente |
 
 ## 6. Pendientes antes de considerar la aplicación lista
 
-Primero se debe fusionar la corrección del workflow en `main`. Después se debe ejecutar el workflow desde `main` y descargar el artefacto release generado por esa ejecución, no el artefacto histórico debug.
+El pendiente técnico de infraestructura quedó resuelto: la corrección del workflow ya está fusionada en `main` y el artefacto final procede de `main`, no de una rama separada.
 
 A continuación se debe desinstalar la versión anterior del teléfono, instalar el nuevo APK, abrir la aplicación y comprobar que supera el splash. También se debe verificar la navegación principal, el campo de texto, la función TTS, el permiso y funcionamiento del micrófono STT, el tratamiento de errores sin conexión y las pantallas de configuración y OAuth.
 
@@ -98,6 +100,6 @@ La auditoría final deberá comprobar que el código fusionado, el workflow, el 
 
 ## Referencias
 
-[1]: https://github.com/the-VanCartier-Authority/VVC-VOICE-SYNC/actions/runs/31981676937 "Workflow release corregido"
-[2]: https://github.com/the-VanCartier-Authority/VVC-VOICE-SYNC/compare/main...fix%2Fandroid-release-apk?expand=1 "Comparación de la corrección con main"
+[1]: https://github.com/the-VanCartier-Authority/VVC-VOICE-SYNC/pull/10 "Pull Request de corrección"
+[2]: https://github.com/the-VanCartier-Authority/VVC-VOICE-SYNC/actions/runs/32326327011 "Workflow release final de main"
 [3]: https://github.com/the-VanCartier-Authority/VVC-VOICE-SYNC "Repositorio VVC-VOICE-SYNC"
