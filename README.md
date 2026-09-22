@@ -1,82 +1,99 @@
-<img width="1706" height="922" alt="Image" src="https://github.com/user-attachments/assets/b1e489f1-bf03-4bb5-8ca3-3bd530c7ff55" />
-<img width="1774" height="887" alt="Image" src="https://github.com/user-attachments/assets/7356e062-7b8b-45d2-a09d-3c760d5cc2a3" />
+# VVC Voice Sync
 
-# VVC Voice Sync - Lector de Texto a Voz Offline (Cyberpunk Edition)
-
-## Introducción
-
-VVC Voice Sync es una aplicación móvil diseñada para convertir texto a voz de manera completamente offline, utilizando los motores de voz nativos de tu dispositivo Android o iOS. Con una estética cyberpunk y una interfaz intuitiva, te permite pegar cualquier texto y escucharlo al instante, sin necesidad de conexión a internet ni APIs externas. Ideal para leer artículos, documentos o cualquier contenido textual sobre la marcha.
+Aplicación móvil de **texto a voz (TTS) offline** para Android e iOS. VVC Voice Sync utiliza las voces disponibles en el dispositivo mediante `expo-speech`, por lo que la lectura no requiere una API de voz externa.
 
 ## Características
 
--   **Conversión de Texto a Voz Offline**: Utiliza los motores TTS nativos del sistema operativo para funcionar sin conexión a internet.
--   **Interfaz Cyberpunk**: Diseño futurista con colores neón (cian y magenta) y tipografía tecnológica.
--   **Pegar desde Portapapeles**: Copia texto fácilmente desde cualquier aplicación y pégalo directamente en VVC Voice Sync.
--   **Controles de Voz**: Ajusta la velocidad, el tono y el volumen de la voz para una experiencia personalizada.
--   **Selección de Idioma/Voz**: Elige entre las voces disponibles en tu dispositivo.
--   **Multiplataforma**: Compatible con Android e iOS.
+- Texto a voz usando el motor TTS nativo del dispositivo.
+- Funcionamiento offline para la conversión de texto a voz.
+- Pegado de texto desde el portapapeles.
+- Reproducción y detención de lectura.
+- Selección entre las voces disponibles en el dispositivo.
+- Ajuste de velocidad, tono y volumen.
+- Persistencia local de la configuración.
+- Interfaz optimizada para uso móvil.
 
-## Instalación y Ejecución (Modo Desarrollo)
+## Requisitos
 
-Para ejecutar VVC Voice Sync en tu entorno de desarrollo, sigue estos pasos:
+- Node.js compatible con Expo SDK 54.
+- pnpm 9.15.4.
+- Para Android: Android SDK y un dispositivo/emulador configurado.
+- Para iOS: macOS con Xcode y un dispositivo/simulador configurado.
 
-1.  **Clonar el Repositorio**:
-    ```bash
-    git clone https://github.com/the-VanCartier-Authority/VVC-NEXUS-PURGE.git # (Asumiendo que el código se alojará aquí)
-    cd VVC-NEXUS-PURGE/offline-tts-app
-    ```
+## Desarrollo
 
-2.  **Instalar Dependencias**:
-    Asegúrate de tener `pnpm` instalado. Si no, puedes instalarlo con `npm install -g pnpm`.
-    ```bash
-    pnpm install
-    ```
+Instala las dependencias:
 
-3.  **Iniciar el Servidor de Desarrollo**:
-    ```bash
-    pnpm dev
-    ```
-    Esto iniciará el Metro Bundler de Expo. Escanea el código QR con la aplicación Expo Go en tu teléfono (Android o iOS) para ver la aplicación en tu dispositivo.
+```bash
+pnpm install
+```
 
-## Compilación (Producción)
+Para comprobar TypeScript:
 
-Para generar un archivo APK (Android) o IPA (iOS) para su distribución, se recomienda utilizar el proceso de compilación de Expo. **No intentes compilar manualmente dentro del entorno sandbox, ya que puede agotar los recursos.**
+```bash
+pnpm check
+```
 
-1.  **Guardar un Checkpoint**: Asegúrate de que todos tus cambios estén guardados en un checkpoint. En el entorno de desarrollo de Manus, esto se hace con la función `webdev_save_checkpoint`.
+Para ejecutar las pruebas:
 
-2.  **Publicar la Aplicación**: Una vez que el checkpoint esté guardado, utiliza el botón **"Publish"** en la interfaz de usuario de Manus. Esto iniciará el proceso de compilación en la nube de Expo, generando los binarios de la aplicación (APK/IPA) que podrás descargar.
+```bash
+pnpm test
+```
 
-    *   **Para Android**: Se generará un archivo `.apk` o `.aab`.
-    *   **Para iOS**: Se generará un archivo `.ipa`.
+Para Android:
 
-## Uso de la Aplicación
+```bash
+pnpm android
+```
 
-### Pantalla Principal (Home)
+Para iOS:
 
-1.  **Ingresar Texto**: Puedes escribir directamente en el área de texto o usar el botón **"PEGAR"** para copiar contenido desde el portapapeles de tu dispositivo.
-2.  **Limpiar Texto**: El botón **"LIMPIAR"** borrará todo el texto del área de entrada.
-3.  **Reproducir/Detener**: Toca el botón principal **"REPRODUCIR"** para que la aplicación lea el texto en voz alta. Si ya está reproduciendo, el botón cambiará a **"DETENER"** para pausar o detener la lectura.
-4.  **Indicador de Estado**: Verás un indicador visual que muestra si la aplicación está reproduciendo audio.
+```bash
+pnpm ios
+```
 
-### Pantalla de Configuración (Settings)
+> El flujo principal de VVC Voice Sync no necesita un servidor backend para convertir texto a voz. La disponibilidad y calidad de las voces dependen del motor TTS instalado y configurado en el dispositivo.
 
-1.  **Idioma / Voz**: Selecciona el idioma y la voz que prefieras de las opciones disponibles en tu dispositivo.
-2.  **Velocidad**: Ajusta la velocidad de la lectura usando el deslizador.
-3.  **Tono**: Modifica el tono de la voz (más grave o más agudo) con el deslizador.
-4.  **Volumen**: Controla el volumen de la reproducción.
+## Compilación Android
 
-Todos los cambios en la configuración se guardan automáticamente y se aplican en tiempo real.
+El repositorio incluye un workflow de GitHub Actions que genera un APK Release mediante Gradle.
 
-## Personalización
+El artefacto debe probarse en un dispositivo Android físico antes de considerar una compilación como validación de funcionamiento. Un build exitoso únicamente demuestra que el proyecto compiló correctamente.
 
-Si deseas personalizar la aplicación, puedes modificar los siguientes archivos:
+## Arquitectura
 
--   `theme.config.js`: Para ajustar la paleta de colores cyberpunk.
--   `app.config.ts`: Para cambiar el nombre de la aplicación, el slug y la URL del logo.
--   `assets/images/icon.png`: Reemplaza este archivo con tu propio icono de aplicación.
--   `app/(tabs)/index.tsx` y `app/(tabs)/settings.tsx`: Para modificar la interfaz de usuario y la lógica de las pantallas.
+El flujo principal es:
 
----
+```text
+Texto
+  ↓
+SpeechProvider
+  ↓
+expo-speech
+  ↓
+Motor TTS del dispositivo
+  ↓
+Audio
+```
 
-<img width="1248" height="832" alt="Image" src="https://github.com/user-attachments/assets/c1e2d082-ba62-468f-a0f1-5df7079c40c9" />
-<img width="1024" height="1024" alt="Image" src="https://github.com/user-attachments/assets/9573b7a2-344f-4c60-8df6-377c06651dfc" />
+La configuración de voz se guarda localmente mediante AsyncStorage.
+
+## Limitaciones conocidas
+
+- La lista de voces depende de las voces instaladas en el dispositivo.
+- Un dispositivo sin una voz española instalada puede no ofrecer una voz `es-ES`.
+- El soporte de pausado/reanudación y ciertos comportamientos del motor pueden variar entre plataformas y motores TTS.
+- La validación en dispositivo físico es necesaria para confirmar el comportamiento de un APK Release.
+
+## Estructura principal
+
+- `app/(tabs)/index.tsx`: pantalla principal.
+- `app/(tabs)/settings.tsx`: configuración de voz.
+- `hooks/use-speech.ts`: núcleo de TTS y persistencia de configuración.
+- `app/_layout.tsx`: composición raíz de la aplicación.
+- `app.config.ts`: configuración Expo/Android/iOS.
+- `.github/workflows/android-build.yml`: compilación Android Release.
+
+## Estado del proyecto
+
+La prioridad actual es mantener el núcleo TTS pequeño, verificable y offline, eliminando progresivamente infraestructura heredada que no sea necesaria para esa función.
